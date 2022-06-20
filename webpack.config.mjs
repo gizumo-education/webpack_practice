@@ -1,4 +1,5 @@
 import path from 'path';
+import { fileURLToPath } from 'url';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 const nodeEnv = process.env.NODE_ENV || 'development';
@@ -7,10 +8,13 @@ const devMode = nodeEnv === 'development';
 console.log('nodeEnv ==> ', nodeEnv);
 console.log('devMode ==> ', devMode);
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const src = path.resolve(__dirname, './src');
 const dist = path.resolve(__dirname, './public');
 
-const config = {
+export default {
   mode: nodeEnv,
   entry: {
     app: `${src}/js/app.js`
@@ -21,13 +25,6 @@ const config = {
   },
   module: {
     rules: [
-      // {
-      //   test: /\.(jsx?|vue)$/,
-      //   enforce: 'pre',
-      //   exclude: /node_modules/,
-      //   loader: 'eslint-loader',
-      //   options: { failOnError: false }
-      // },
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -47,15 +44,11 @@ const config = {
             loader: 'postcss-loader',
             options: {
               sourceMap: true,
-              plugins: [
-                require('autoprefixer')({
-                  grid: true,
-                  browsers: [
-                    'IE >= 11',
-                    'last 2 versions'
-                  ]
-                })
-              ]
+              postcssOptions: {
+                plugins: [
+                  ["autoprefixer"],
+                ],
+              },
             }
           },
           {
@@ -78,12 +71,10 @@ const config = {
     extensions: ['.js', '.json']
   },
   devServer: {
-    open: 'Google Chrome',
-    inline: true,
+    open: true,
+    static: {
+      directory: dist,
+    },
     hot: true,
-    port: 8080,
-    contentBase: dist
   },
 }
-
-export default config;
