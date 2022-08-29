@@ -34,5 +34,9 @@
   "browserslist": [
     "ie 11",
     "last 2 versions"
-  ]
+  ],
+  "volta": {
+    "node": "14.18.1",
+    "npm": "6.14.15"
+  }
 }
