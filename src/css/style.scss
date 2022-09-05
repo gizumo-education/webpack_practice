@@ -1,4 +1,4 @@
-@import './global/reset.scss';
-@import './global/base.scss';
+@use './global/reset';
+@use './global/base';
 
-@import './content/heading.scss';
+@use './content/heading';
