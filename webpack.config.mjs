@@ -5,19 +5,16 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 const nodeEnv = process.env.NODE_ENV || 'development';
 const devMode = nodeEnv === 'development';
 
-console.log('nodeEnv ==> ', nodeEnv);
-console.log('devMode ==> ', devMode);
+const filename = fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const src = path.resolve(__dirname, './src');
-const dist = path.resolve(__dirname, './public');
+const src = path.resolve(dirname, './src');
+const dist = path.resolve(dirname, './public');
 
 export default {
   mode: nodeEnv,
   entry: {
-    app: `${src}/js/app.js`
+    app: `${src}/js/app.js`,
   },
   output: {
     filename: 'js/[name].bundle.js',
@@ -37,8 +34,8 @@ export default {
           {
             loader: 'css-loader',
             options: {
-              sourceMap: true
-            }
+              sourceMap: true,
+            },
           },
           {
             loader: 'postcss-loader',
@@ -46,28 +43,28 @@ export default {
               sourceMap: true,
               postcssOptions: {
                 plugins: [
-                  ["autoprefixer"],
+                  ['autoprefixer'],
                 ],
               },
-            }
+            },
           },
           {
             loader: 'sass-loader',
             options: {
-              sourceMap: true
-            }
-          }
-        ]
-      }
-    ]
+              sourceMap: true,
+            },
+          },
+        ],
+      },
+    ],
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'css/[name].css'
-    })
+      filename: 'css/[name].css',
+    }),
   ],
   resolve: {
-    extensions: ['.js', '.json']
+    extensions: ['.js', '.json'],
   },
   devServer: {
     open: true,
@@ -76,4 +73,4 @@ export default {
     },
     hot: true,
   },
-}
+};

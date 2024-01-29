@@ -1,11 +1,12 @@
 {
   "parserOptions": {
     "parser": "babel-eslint",
-    "sourceType": "module"
+    "sourceType": "module",
+    "ecmaVersion": 2020
   },
   "extends": [
     "airbnb-base",
-    "eslint:recommended",
+    "eslint:recommended"
   ],
   "rules": {
     "no-console": 1,
